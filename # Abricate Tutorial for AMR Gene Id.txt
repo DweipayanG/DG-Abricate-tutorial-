@@ -1,0 +1,113 @@
+# Abricate Tutorial for AMR Gene Identification on Windows
+
+This tutorial guides you through the process of setting up and using Abricate to identify Antimicrobial Resistance (AMR) genes in FASTA files on Windows through the Windows Subsystem for Linux (WSL). 
+
+## Prerequisites
+
+- Windows 10 or later with administrative privileges
+- A stable internet connection
+
+## Getting Started
+
+### Step 1: Enable WSL on Windows
+
+Before installing Abricate, you need to enable the Windows Subsystem for Linux (WSL) which allows you to run a Linux distribution on Windows.
+
+1. Go to Control Panel > Programs and Features > Turn Windows Features On or Off
+2. Check both `Windows Subsystem for Linux` and `Virtual Machine Platform`
+3. Click OK and restart your computer
+
+### Step 2: Install a Linux Distribution
+
+Now, open the Command Prompt by searching `cmd` in the Windows search bar and run the following commands to install Ubuntu through WSL:
+
+```sh
+wsl --list
+wsl --update
+wsl --status
+wsl --install -d ubuntu
+```
+
+Once the installation is complete, launch the Ubuntu terminal.
+
+## Setting Up Abricate in Ubuntu
+
+### Step 3: Install Miniconda
+
+We will be using Miniconda to manage our packages and environments. To install it, run the following commands in the Ubuntu terminal:
+
+```sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+```
+
+Follow the prompts to complete the installation.
+
+### Step 4: Configure Conda Channels
+
+Add the Bioconda and Conda-forge channels which will be needed for installing Abricate:
+
+```sh
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
+
+### Step 5: Create and Activate Conda Environment
+
+Create a new Conda environment named `AMR`:
+
+```sh
+conda create -n AMR
+```
+
+Now, activate the `AMR` environment:
+
+```sh
+conda activate AMR
+```
+
+### Step 6: Install Mamba
+
+Mamba is a faster alternative to Conda for installing packages. Install Mamba in the base environment:
+
+```sh
+conda install -n base -c conda-forge mamba
+```
+
+### Step 7: Install Abricate
+
+Now, use Mamba to install Abricate:
+
+```sh
+mamba install -c conda-forge -c bioconda -c defaults abricate
+```
+
+### Step 8: List Abricate Databases
+
+To check if Abricate is installed correctly and see the available databases, run:
+
+```sh
+abricate --list
+```
+
+## Using Abricate to Identify AMR Genes
+
+### Step 9: Run Abricate on Your Data
+
+Navigate to the folder containing your FASTA file (e.g., `abc.fasta`) and run Abricate. For example:
+
+```sh
+abricate abc.fasta -db card --csv > abc_card.csv
+```
+
+If you have multiple FASTA files, you can run Abricate on all of them at once:
+
+```sh
+abricate fasta/*.fasta -db card --csv > abc_card.csv
+```
+
+This will output the results in CSV format into a file named `abc_card.csv`.
+
+## Conclusion
+
+You have now successfully set up and run Abricate on Windows through WSL to identify AMR genes in FASTA files. The results can be found in the output CSV file. Please note that the analysis may take some time depending on the size of your input data.
