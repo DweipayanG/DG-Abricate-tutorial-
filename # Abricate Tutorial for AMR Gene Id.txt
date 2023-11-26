@@ -40,6 +40,8 @@ We will be using Miniconda to manage our packages and environments. To install i
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
+OR IF IN WINDOWS USING WINDOWS INSTALLER, ONCE INSTALLED MINICONDA OR ANACONDA USE COMMAND IN THE TERMINAL OF CONDA AND GIVE COMMAND TO ADD CONDA TO POWERSHELL:
+conda init powershell
 
 Follow the prompts to complete the installation.
 
